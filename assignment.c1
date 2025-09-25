@@ -1,0 +1,39 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+
+int countWays(int coins[], int N, int sum) {
+     vector<int> dp(sum + 1, 0);
+    dp[0] = 1;
+
+    
+    for (int i = 0; i < N; i++) {
+        int coin = coins[i];
+
+        for (int j = coin; j <= sum; j++) {
+            dp[j] += dp[j - coin];
+        }
+    }
+
+    
+    return dp[sum];
+}
+
+int main() {
+    
+    int coins1[] = {1, 2, 3};
+    int sum1 = 4;
+    int N1 = sizeof(coins1) / sizeof(coins1[0]);
+    cout << "Number of ways to make sum " << sum1 << " = "
+         << countWays(coins1, N1, sum1) << endl;
+
+    
+    int coins2[] = {2, 5, 3, 6};
+    int sum2 = 10;
+    int N2 = sizeof(coins2) / sizeof(coins2[0]);
+    cout << "Number of ways to make sum " << sum2 << " = "
+         << countWays(coins2, N2, sum2) << endl;
+
+return 0;
+}
